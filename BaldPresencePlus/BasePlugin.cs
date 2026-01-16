@@ -1,25 +1,25 @@
 ﻿using BepInEx;
 using System;
-using MTM101BaldAPI.OptionsAPI;
 using UnityEngine;
 using HarmonyLib;
 using BepInEx.Configuration;
-using MTM101BaldAPI;
 using System.Threading;
 using Discord;
 
-
-namespace BaldiRPC
+namespace BaldPresencePlus
 {
     [BepInPlugin(ModInfo.GUID, ModInfo.Name, ModInfo.Version)]
     [BepInProcess("BALDI.exe")]
-    public class BaldiRPC : BaseUnityPlugin
+    public class BasePlugin : BaseUnityPlugin
     {
+        public static BepInEx.Logging.ManualLogSource logsblablabla = BepInEx.Logging.Logger.CreateLogSource("BaldPresencePlus");
+
         //DISCORD VARIABLES
         public static Discord.Discord BB_Discord = null;
         public static ActivityManager BB_ActivityManager = null;
         public static Discord.Activity BB_Activity = new Discord.Activity { Instance = true };
 
+        //config
         public static ConfigEntry<bool> RichPresenceEnabled;
         public static ConfigEntry<long> client_id_config;
         public static ConfigEntry<int> WhichIcon;
@@ -32,13 +32,7 @@ namespace BaldiRPC
         public string extra_state_string;
         public string extra_detail_string;
 
-        public static BaldiRPC plugin;
-
-        internal string[] iconNames = {
-                "Placeholder",
-                "Refined",
-                "Plus"
-            };
+        public static BasePlugin plugin;
 
         internal static class ModInfo
         {
@@ -55,7 +49,7 @@ namespace BaldiRPC
         void Awake()
         {
             Harmony harmony = new Harmony(ModInfo.GUID);
-            harmony.PatchAllConditionals();
+            harmony.PatchAll();
             plugin = this;
 
             var discord = new Discord.Discord(RPInfo.client_id, (UInt64)Discord.CreateFlags.Default);
@@ -70,6 +64,7 @@ namespace BaldiRPC
             {
                 Thread BB_THREAD = new Thread(DiscordGo);
                 BB_THREAD.Start();
+                
             }
         }
         private static void DiscordGo()
@@ -113,7 +108,6 @@ namespace BaldiRPC
                 if (Lt != null) BB_Activity.Assets.LargeText = Lt;
                 if (Si != null) BB_Activity.Assets.SmallImage = Si;
                 if (St != null) BB_Activity.Assets.SmallText = St;
-
             }
             try
             {

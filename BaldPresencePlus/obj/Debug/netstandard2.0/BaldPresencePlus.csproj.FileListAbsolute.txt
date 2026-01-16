@@ -1,8 +1,3 @@
-C:\Users\Loyness\Documents\C# Projs\BaldPresencePlus\BaldPresencePlus\obj\Debug\netstandard2.0\BaldPresencePlus.csproj.AssemblyReference.cache
-C:\Users\Loyness\Documents\C# Projs\BaldPresencePlus\BaldPresencePlus\obj\Debug\netstandard2.0\BaldPresencePlus.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\Loyness\Documents\C# Projs\BaldPresencePlus\BaldPresencePlus\obj\Debug\netstandard2.0\BaldPresencePlus.AssemblyInfoInputs.cache
-C:\Users\Loyness\Documents\C# Projs\BaldPresencePlus\BaldPresencePlus\obj\Debug\netstandard2.0\BaldPresencePlus.AssemblyInfo.cs
-C:\Users\Loyness\Documents\C# Projs\BaldPresencePlus\BaldPresencePlus\obj\Debug\netstandard2.0\BaldPresencePlus.csproj.CoreCompileInputs.cache
 C:\Users\Loyness\Documents\C# Projs\BaldPresencePlus\BaldPresencePlus\bin\Debug\netstandard2.0\BaldPresencePlus.deps.json
 C:\Users\Loyness\Documents\C# Projs\BaldPresencePlus\BaldPresencePlus\bin\Debug\netstandard2.0\BaldPresencePlus.dll
 C:\Users\Loyness\Documents\C# Projs\BaldPresencePlus\BaldPresencePlus\bin\Debug\netstandard2.0\BaldPresencePlus.pdb
@@ -121,6 +116,12 @@ C:\Users\Loyness\Documents\C# Projs\BaldPresencePlus\BaldPresencePlus\bin\Debug\
 C:\Users\Loyness\Documents\C# Projs\BaldPresencePlus\BaldPresencePlus\bin\Debug\netstandard2.0\BepInEx.Preloader.xml
 C:\Users\Loyness\Documents\C# Projs\BaldPresencePlus\BaldPresencePlus\bin\Debug\netstandard2.0\MonoMod.RuntimeDetour.xml
 C:\Users\Loyness\Documents\C# Projs\BaldPresencePlus\BaldPresencePlus\bin\Debug\netstandard2.0\MonoMod.Utils.xml
+C:\Users\Loyness\Documents\C# Projs\BaldPresencePlus\BaldPresencePlus\obj\Debug\netstandard2.0\BaldPresencePlus.csproj.AssemblyReference.cache
+C:\Users\Loyness\Documents\C# Projs\BaldPresencePlus\BaldPresencePlus\obj\Debug\netstandard2.0\BaldPresencePlus.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Loyness\Documents\C# Projs\BaldPresencePlus\BaldPresencePlus\obj\Debug\netstandard2.0\BaldPresencePlus.AssemblyInfoInputs.cache
+C:\Users\Loyness\Documents\C# Projs\BaldPresencePlus\BaldPresencePlus\obj\Debug\netstandard2.0\BaldPresencePlus.AssemblyInfo.cs
+C:\Users\Loyness\Documents\C# Projs\BaldPresencePlus\BaldPresencePlus\obj\Debug\netstandard2.0\BaldPresencePlus.csproj.CoreCompileInputs.cache
+C:\Users\Loyness\Documents\C# Projs\BaldPresencePlus\BaldPresencePlus\obj\Debug\netstandard2.0\BaldPresencePlus.sourcelink.json
 C:\Users\Loyness\Documents\C# Projs\BaldPresencePlus\BaldPresencePlus\obj\Debug\netstandard2.0\BaldPres.31AE3917.Up2Date
 C:\Users\Loyness\Documents\C# Projs\BaldPresencePlus\BaldPresencePlus\obj\Debug\netstandard2.0\BaldPresencePlus.dll
 C:\Users\Loyness\Documents\C# Projs\BaldPresencePlus\BaldPresencePlus\obj\Debug\netstandard2.0\BaldPresencePlus.pdb

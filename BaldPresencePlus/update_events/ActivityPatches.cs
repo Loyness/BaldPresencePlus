@@ -1,6 +1,8 @@
+using System;
 using HarmonyLib;
+using UnityEngine;
 
-namespace BaldiRPC.ActivityPatches
+namespace BaldPresencePlus.ActivityPatches
 {
 
     //INITIALIZE MAIN MENU
@@ -9,7 +11,7 @@ namespace BaldiRPC.ActivityPatches
     {
         static void Postfix()
         {
-            BaldiRPC.plugin.UpdateActivity("Main Menu", null, "mainmenu", "Main menu", null, null);
+            BasePlugin.plugin.UpdateActivity("Main Menu", null, "mainmenu", "Main menu", null, null);
         }
     }
 
@@ -19,7 +21,7 @@ namespace BaldiRPC.ActivityPatches
     {
         static void Postfix()
         {
-            BaldiRPC.plugin.UpdateActivity("Main Menu", "", "mainmenu", "Main menu", null, null);
+            BasePlugin.plugin.UpdateActivity("Main Menu", "", "mainmenu", "Main menu", null, null);
         }
     }
 
@@ -30,7 +32,7 @@ namespace BaldiRPC.ActivityPatches
         static void Postfix()
         {
             if (Singleton<CoreGameManager>.Instance != null) return; //only change text if not playing game
-            BaldiRPC.plugin.UpdateActivity("Options", null, "options", "Options", null, null);
+            BasePlugin.plugin.UpdateActivity("Options", null, "options", "Options", null, null);
         }
     }
 
@@ -41,7 +43,7 @@ namespace BaldiRPC.ActivityPatches
         static void Postfix()
         {
             if (Singleton<CoreGameManager>.Instance != null) return; //only change text if not playing game
-            BaldiRPC.plugin.UpdateActivity("Main Menu", "", "mainmenu", "Main Menu", null, null);
+            BasePlugin.plugin.UpdateActivity("Main Menu", "", "mainmenu", "Main Menu", null, null);
         }
     }
 
@@ -51,7 +53,7 @@ namespace BaldiRPC.ActivityPatches
     {
         static void Postfix()
         {
-            BaldiRPC.plugin.UpdateActivity("File Select", null, "fileselect", "File Select", null, null);
+            BasePlugin.plugin.UpdateActivity("File Select", null, "fileselect", "File Select", null, null);
         }
     }
 
@@ -61,7 +63,7 @@ namespace BaldiRPC.ActivityPatches
     {
         static void Postfix()
         {
-            BaldiRPC.plugin.UpdateActivity("Elevator", Singleton<CoreGameManager>.Instance.sceneObject.levelTitle, "elevator", "Elevator", null, null);
+            BasePlugin.plugin.UpdateActivity("Elevator", Singleton<CoreGameManager>.Instance.sceneObject.levelTitle, "elevator", "Elevator", null, null);
         }
     }
 
@@ -73,11 +75,11 @@ namespace BaldiRPC.ActivityPatches
         {
             if (Singleton<CoreGameManager>.Instance.sceneObject.levelTitle == "END")
             {
-                BaldiRPC.plugin.UpdateActivity(null, count.ToString() + " Notebooks", null, null, null, null);
+                BasePlugin.plugin.UpdateActivity(null, count.ToString() + " Notebooks", null, null, null, null);
             }
             else
             {
-                BaldiRPC.plugin.UpdateActivity(null, count.ToString() + "/" + __instance.NotebookTotal.ToString() + " Notebooks", null, null, null, null);
+                BasePlugin.plugin.UpdateActivity(null, count.ToString() + "/" + __instance.NotebookTotal.ToString() + " Notebooks", null, null, null, null);
             }
         }
     }
@@ -86,15 +88,29 @@ namespace BaldiRPC.ActivityPatches
     [HarmonyPatch(typeof(BaseGameManager), "BeginPlay")]
     class OnChangeToFloor
     {
+        public static string[] gameplayIcons = { "gameplay1", "gameplay2", "gameplay3", "gameplay4", "gameplay5", "gameplay6", "gameplay7", "gameplay8", "gameplay9", "gameplay10", "gameplay11", "gameplay12", "gameplay13" };
         static void Postfix()
         {
+            BasePlugin.logsblablabla.LogInfo(gameplayIcons[UnityEngine.Random.Range(0, gameplayIcons.Length)]);
             if (Singleton<CoreGameManager>.Instance.sceneObject.levelTitle == "END")
             {
-                BaldiRPC.plugin.UpdateActivity(Singleton<CoreGameManager>.Instance.sceneObject.levelTitle, Singleton<BaseGameManager>.Instance.FoundNotebooks.ToString() + " Notebooks", "gameplay1", Singleton<CoreGameManager>.Instance.sceneObject.levelTitle, null, null);
+                BasePlugin.plugin.UpdateActivity(Singleton<CoreGameManager>.Instance.sceneObject.levelTitle, Singleton<BaseGameManager>.Instance.FoundNotebooks.ToString() + " Notebooks", gameplayIcons[UnityEngine.Random.Range(0, gameplayIcons.Length)], Singleton<CoreGameManager>.Instance.sceneObject.levelTitle, null, null);
+            }
+            else if (Singleton<CoreGameManager>.Instance.sceneObject.levelTitle == "PIT")
+            {
+                BasePlugin.plugin.UpdateActivity(Singleton<CoreGameManager>.Instance.sceneObject.levelTitle, Singleton<CoreGameManager>.Instance.GetPoints(0).ToString() + " YTPs", "pitstop", Singleton<CoreGameManager>.Instance.sceneObject.levelTitle, null, null);
+            }
+            else if (Singleton<CoreGameManager>.Instance.sceneObject.levelTitle == "FT")
+            {
+                BasePlugin.plugin.UpdateActivity(Singleton<CoreGameManager>.Instance.sceneObject.levelTitle, "Exploring around", "fieldtrip", Singleton<CoreGameManager>.Instance.sceneObject.levelTitle, null, null);
+            }
+            else if (Singleton<CoreGameManager>.Instance.sceneObject.levelTitle == "FARM")
+            {
+                BasePlugin.plugin.UpdateActivity(Singleton<CoreGameManager>.Instance.sceneObject.levelTitle, "Something is on the works.. - Baldi", "gameplay_", Singleton<CoreGameManager>.Instance.sceneObject.levelTitle, null, null);
             }
             else
             {
-                BaldiRPC.plugin.UpdateActivity(Singleton<CoreGameManager>.Instance.sceneObject.levelTitle, Singleton<BaseGameManager>.Instance.FoundNotebooks.ToString() + "/" + Singleton<BaseGameManager>.Instance.NotebookTotal.ToString() + " Notebooks", "gameplay1", Singleton<CoreGameManager>.Instance.sceneObject.levelTitle, null, null);
+                BasePlugin.plugin.UpdateActivity(Singleton<CoreGameManager>.Instance.sceneObject.levelTitle, Singleton<BaseGameManager>.Instance.FoundNotebooks.ToString() + "/" + Singleton<BaseGameManager>.Instance.NotebookTotal.ToString() + " Notebooks", gameplayIcons[UnityEngine.Random.Range(0, gameplayIcons.Length)], Singleton<CoreGameManager>.Instance.sceneObject.levelTitle, null, null);
             }
         }
     }
@@ -107,11 +123,11 @@ namespace BaldiRPC.ActivityPatches
         {
             if (__instance.Paused)
             {
-                BaldiRPC.plugin.UpdateActivity(Singleton<CoreGameManager>.Instance.sceneObject.levelTitle + " (Paused)", null, null, null, null, null);
+                BasePlugin.plugin.UpdateActivity(Singleton<CoreGameManager>.Instance.sceneObject.levelTitle + " (Paused)", null, null, null, null, null);
             }
             else
             {
-                BaldiRPC.plugin.UpdateActivity(Singleton<CoreGameManager>.Instance.sceneObject.levelTitle, null, null, null, null, null);
+                BasePlugin.plugin.UpdateActivity(Singleton<CoreGameManager>.Instance.sceneObject.levelTitle, null, null, null, null, null);
             }
         }
     }
