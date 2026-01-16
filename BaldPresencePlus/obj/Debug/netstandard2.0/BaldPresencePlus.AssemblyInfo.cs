@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BaldPresencePlus")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f7d87e53bf035aba4aca2b3d0efea9bd7cbabb33")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+aad2af0c07c3e976d0bf123775409c32084811ed")]
 [assembly: System.Reflection.AssemblyProductAttribute("BaldPresencePlus")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BaldPresencePlus")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
