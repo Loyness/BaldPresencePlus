@@ -29,7 +29,7 @@ namespace BaldiRPC.ActivityPatches
     {
         static void Postfix()
         {
-            //if (Singleton<CoreGameManager>.Instance != null) return; //only change text if not playing game
+            if (Singleton<CoreGameManager>.Instance != null) return; //only change text if not playing game
             BaldiRPC.plugin.UpdateActivity("Options", null, "options", "Options", null, null);
         }
     }
@@ -40,8 +40,8 @@ namespace BaldiRPC.ActivityPatches
     {
         static void Postfix()
         {
-            //if (Singleton<CoreGameManager>.Instance != null) return; //only change text if not playing game
-            BaldiRPC.plugin.UpdateActivity(null, "", "mainmenu", "Main Menu", null, null);
+            if (Singleton<CoreGameManager>.Instance != null) return; //only change text if not playing game
+            BaldiRPC.plugin.UpdateActivity("Main Menu", "", "mainmenu", "Main Menu", null, null);
         }
     }
 

@@ -72,4 +72,5 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
 # exclude the build folder
-/BaldiRichPresence/bin
+/BaldPresencePlus/bin
+/BaldPresencePlus/obj
