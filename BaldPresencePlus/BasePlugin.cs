@@ -14,12 +14,10 @@ namespace BaldPresencePlus
     {
         public static BepInEx.Logging.ManualLogSource logsblablabla = BepInEx.Logging.Logger.CreateLogSource("BaldPresencePlus");
 
-        //DISCORD VARIABLES
         public static Discord.Discord BB_Discord = null;
         public static ActivityManager BB_ActivityManager = null;
         public static Discord.Activity BB_Activity = new Discord.Activity { Instance = true };
 
-        //config
         public static ConfigEntry<bool> RichPresenceEnabled;
         public static ConfigEntry<long> client_id_config;
         public static ConfigEntry<int> WhichIcon;
@@ -59,7 +57,6 @@ namespace BaldPresencePlus
             client_id_config = plugin.Config.Bind("DiscordRPC", "ClientID", 1461650504143605790, "This is client id to the application (If you don't know, please don't touch it)");
             WhichIcon = plugin.Config.Bind("DiscordRPC", "which_icon", 0, "Which icon should be used for the large image of the Rich Presence visualizer. 0 = Placeholder, 1 = Refined, 2 = Plus");
 
-            //only start if it's enabled
             if (RichPresenceEnabled.Value)
             {
                 Thread BB_THREAD = new Thread(DiscordGo);
