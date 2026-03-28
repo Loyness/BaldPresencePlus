@@ -10,7 +10,7 @@ Have you ever wanted to share information about the current status of your Baldi
 * [Baldi's Basics Plus 0.5+](https://store.steampowered.com/app/1275890/Baldis_Basics_Plus/)
 * [MissingTextureMan101's BB+ Dev API](https://gamebanana.com/mods/383711)
 * [Discord Game SDK](https://docs.discord.com/developers/developer-tools/game-sdk)
-* [- if is unavailable use this](https://web.archive.org/web/20260211110403/https://dl-game-sdk.discordapp.net/3.2.1/discord_game_sdk.zip) |  [or this](https://dl-game-sdk.discordapp.net/3.2.1/discord_game_sdk.zip)
+[- if is unavailable use this](https://dl-game-sdk.discordapp.net/3.2.1/discord_game_sdk.zip) |  [or this](https://web.archive.org/web/20260211110403/https://dl-game-sdk.discordapp.net/3.2.1/discord_game_sdk.zip)
 
 ---
 
