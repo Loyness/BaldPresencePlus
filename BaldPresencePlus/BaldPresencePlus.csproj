@@ -1,0 +1,70 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- GameDir can be overridden per-machine in BaldPresencePlus.csproj.user
+       (that file is gitignored), or passed on the command line:
+         dotnet build -p:GameDir="C:\path\to\game"
+       Default below is the Linux path for this project's author. -->
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <AssemblyName>BaldPresencePlus</AssemblyName>
+    <RootNamespace>BaldPresencePlus</RootNamespace>
+    <GameDir Condition="'$(GameDir)' == ''">/home/loyness/.local/share/Steam/steamapps/common/Baldi&apos;s Basics Plus</GameDir>
+    <BepInExDir>$(GameDir)/BepInEx</BepInExDir>
+    <ManagedDir>$(GameDir)/BALDI_Data/Managed</ManagedDir>
+    <PluginsDir>$(BepInExDir)/plugins</PluginsDir>
+  </PropertyGroup>
+
+  <!-- Per-machine overrides (GameDir, etc.) — not committed to git -->
+  <Import Project="BaldPresencePlus.csproj.user" Condition="Exists('BaldPresencePlus.csproj.user')" />
+
+  <!-- Publicizer -->
+  <ItemGroup>
+    <PackageReference Include="BepInEx.AssemblyPublicizer.MSBuild" Version="0.4.2" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Publicize Include="$(ManagedDir)/Assembly-CSharp.dll" />
+  </ItemGroup>
+
+  <!-- BepInEx core -->
+  <ItemGroup>
+    <Reference Include="BepInEx">
+      <HintPath>$(BepInExDir)/core/BepInEx.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="0Harmony">
+      <HintPath>$(BepInExDir)/core/0Harmony.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <!-- Game assemblies -->
+  <ItemGroup>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>$(ManagedDir)/Assembly-CSharp.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>$(ManagedDir)/UnityEngine.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>$(ManagedDir)/UnityEngine.CoreModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <!-- MTM101 BB+ Dev API -->
+  <ItemGroup>
+    <Reference Include="MTM101BaldAPI">
+      <HintPath>$(PluginsDir)/MTM101BaldAPI.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <!-- Auto-copy DLL to BepInEx plugins folder after build -->
+  <Target Name="CopyToPlugins" AfterTargets="Build">
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(PluginsDir)" />
+  </Target>
+
+</Project>
