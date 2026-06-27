@@ -11,7 +11,8 @@ namespace BaldPresencePlus.ActivityPatches
     {
         static void Postfix()
         {
-            BasePlugin.plugin.UpdateActivity("Main Menu", null, "mainmenu", "Main menu", null, null);
+            BasePlugin.BB_Activity.Timestamps = new Discord.ActivityTimestamps();
+            BasePlugin.UpdateActivity("Main Menu", null, "mainmenu", "Main menu", null, null);
         }
     }
 
@@ -21,7 +22,8 @@ namespace BaldPresencePlus.ActivityPatches
     {
         static void Postfix()
         {
-            BasePlugin.plugin.UpdateActivity("Main Menu", "", "mainmenu", "Main menu", null, null);
+            BasePlugin.BB_Activity.Timestamps = new Discord.ActivityTimestamps();
+            BasePlugin.UpdateActivity("Main Menu", "", "mainmenu", "Main menu", null, null);
         }
     }
 
@@ -31,8 +33,8 @@ namespace BaldPresencePlus.ActivityPatches
     {
         static void Postfix()
         {
-            if (Singleton<CoreGameManager>.Instance != null) return; //only change text if not playing game
-            BasePlugin.plugin.UpdateActivity("Options", null, "options", "Options", null, null);
+            if (Singleton<CoreGameManager>.Instance != null) return;
+            BasePlugin.UpdateActivity("Options", null, "options", "Options", null, null);
         }
     }
 
@@ -42,8 +44,8 @@ namespace BaldPresencePlus.ActivityPatches
     {
         static void Postfix()
         {
-            if (Singleton<CoreGameManager>.Instance != null) return; //only change text if not playing game
-            BasePlugin.plugin.UpdateActivity("Main Menu", "", "mainmenu", "Main Menu", null, null);
+            if (Singleton<CoreGameManager>.Instance != null) return;
+            BasePlugin.UpdateActivity("Main Menu", "", "mainmenu", "Main Menu", null, null);
         }
     }
 
@@ -53,17 +55,18 @@ namespace BaldPresencePlus.ActivityPatches
     {
         static void Postfix()
         {
-            BasePlugin.plugin.UpdateActivity("File Select", null, "fileselect", "File Select", null, null);
+            BasePlugin.UpdateActivity("File Select", null, "fileselect", "File Select", null, null);
         }
     }
 
     //START ELEVATOR
     [HarmonyPatch(typeof(ElevatorScreen), "Initialize")]
-    class OnChangeToElevator  
+    class OnChangeToElevator
     {
         static void Postfix()
         {
-            BasePlugin.plugin.UpdateActivity("Elevator", Singleton<CoreGameManager>.Instance.sceneObject.levelTitle, "elevator", "Elevator", null, null);
+            BasePlugin.BB_Activity.Timestamps = new Discord.ActivityTimestamps();
+            BasePlugin.UpdateActivity("Elevator", Singleton<CoreGameManager>.Instance.sceneObject.levelTitle, "elevator", "Elevator", null, null);
         }
     }
 
@@ -71,47 +74,74 @@ namespace BaldPresencePlus.ActivityPatches
     [HarmonyPatch(typeof(BaseGameManager), "CollectNotebooks")]
     class OnCollectNotebook
     {
-        static void Postfix(BaseGameManager __instance, int count)
+        static void Postfix(BaseGameManager __instance)
         {
-            if (Singleton<CoreGameManager>.Instance.sceneObject.levelTitle == "END")
-            {
-                BasePlugin.plugin.UpdateActivity(null, count.ToString() + " Notebooks", null, null, null, null);
-            }
-            else
-            {
-                BasePlugin.plugin.UpdateActivity(null, count.ToString() + "/" + __instance.NotebookTotal.ToString() + " Notebooks", null, null, null, null);
-            }
+            string state = Singleton<CoreGameManager>.Instance.sceneObject.levelTitle == "END"
+                ? __instance.FoundNotebooks.ToString() + " Notebooks"
+                : __instance.FoundNotebooks.ToString() + "/" + __instance.NotebookTotal.ToString() + " Notebooks";
+
+            BasePlugin.UpdateActivity(null, state, null, null, null, null);
         }
     }
 
-    //BEGI
+    //BEGIN FLOOR
     [HarmonyPatch(typeof(BaseGameManager), "BeginPlay")]
     class OnChangeToFloor
     {
         public static string[] gameplayIcons = { "gameplay1", "gameplay2", "gameplay3", "gameplay4", "gameplay5", "gameplay6", "gameplay7", "gameplay8", "gameplay9", "gameplay10", "gameplay11", "gameplay12", "gameplay13" };
         static void Postfix()
         {
+            BasePlugin.BB_Activity.Timestamps = new Discord.ActivityTimestamps
+            {
+                Start = DateTimeOffset.UtcNow.ToUnixTimeSeconds()
+            };
+
             BasePlugin.logsblablabla.LogInfo(gameplayIcons[UnityEngine.Random.Range(0, gameplayIcons.Length)]);
             if (Singleton<CoreGameManager>.Instance.sceneObject.levelTitle == "END")
             {
-                BasePlugin.plugin.UpdateActivity(Singleton<CoreGameManager>.Instance.sceneObject.levelTitle, Singleton<BaseGameManager>.Instance.FoundNotebooks.ToString() + " Notebooks", gameplayIcons[UnityEngine.Random.Range(0, gameplayIcons.Length)], Singleton<CoreGameManager>.Instance.sceneObject.levelTitle, null, null);
+                BasePlugin.UpdateActivity(Singleton<CoreGameManager>.Instance.sceneObject.levelTitle, Singleton<BaseGameManager>.Instance.FoundNotebooks.ToString() + " Notebooks", gameplayIcons[UnityEngine.Random.Range(0, gameplayIcons.Length)], Singleton<CoreGameManager>.Instance.sceneObject.levelTitle, null, null);
             }
             else if (Singleton<CoreGameManager>.Instance.sceneObject.levelTitle == "PIT")
             {
-                BasePlugin.plugin.UpdateActivity(Singleton<CoreGameManager>.Instance.sceneObject.levelTitle, Singleton<CoreGameManager>.Instance.GetPoints(0).ToString() + " YTPs", "pitstop", Singleton<CoreGameManager>.Instance.sceneObject.levelTitle, null, null);
+                BasePlugin.UpdateActivity(Singleton<CoreGameManager>.Instance.sceneObject.levelTitle, Singleton<CoreGameManager>.Instance.GetPoints(0).ToString() + " YTPs", "pitstop", Singleton<CoreGameManager>.Instance.sceneObject.levelTitle, null, null);
             }
             else if (Singleton<CoreGameManager>.Instance.sceneObject.levelTitle == "FT")
             {
-                BasePlugin.plugin.UpdateActivity(Singleton<CoreGameManager>.Instance.sceneObject.levelTitle, "Exploring around", "fieldtrip", Singleton<CoreGameManager>.Instance.sceneObject.levelTitle, null, null);
+                BasePlugin.UpdateActivity(Singleton<CoreGameManager>.Instance.sceneObject.levelTitle, "Exploring around", "fieldtrip", Singleton<CoreGameManager>.Instance.sceneObject.levelTitle, null, null);
             }
             else if (Singleton<CoreGameManager>.Instance.sceneObject.levelTitle == "FARM")
             {
-                BasePlugin.plugin.UpdateActivity(Singleton<CoreGameManager>.Instance.sceneObject.levelTitle, "Something is on the works.. - Baldi", "gameplay_", Singleton<CoreGameManager>.Instance.sceneObject.levelTitle, null, null);
+                BasePlugin.UpdateActivity(Singleton<CoreGameManager>.Instance.sceneObject.levelTitle, "Something is on the works.. - Baldi", "gameplay_", Singleton<CoreGameManager>.Instance.sceneObject.levelTitle, null, null);
             }
             else
             {
-                BasePlugin.plugin.UpdateActivity(Singleton<CoreGameManager>.Instance.sceneObject.levelTitle, Singleton<BaseGameManager>.Instance.FoundNotebooks.ToString() + "/" + Singleton<BaseGameManager>.Instance.NotebookTotal.ToString() + " Notebooks", gameplayIcons[UnityEngine.Random.Range(0, gameplayIcons.Length)], Singleton<CoreGameManager>.Instance.sceneObject.levelTitle, null, null);
+                BasePlugin.UpdateActivity(Singleton<CoreGameManager>.Instance.sceneObject.levelTitle, Singleton<BaseGameManager>.Instance.FoundNotebooks.ToString() + "/" + Singleton<BaseGameManager>.Instance.NotebookTotal.ToString() + " Notebooks", gameplayIcons[UnityEngine.Random.Range(0, gameplayIcons.Length)], Singleton<CoreGameManager>.Instance.sceneObject.levelTitle, null, null);
             }
+        }
+    }
+
+    //YTP COUNT UPDATE (FOR PIT STOP)
+    [HarmonyPatch(typeof(CoreGameManager), "AddPoints",
+        new[] { typeof(int), typeof(int), typeof(bool) })]
+    class OnAddPointsShort
+    {
+        static void Postfix()
+        {
+            if (Singleton<CoreGameManager>.Instance == null) return;
+            if (Singleton<CoreGameManager>.Instance.sceneObject.levelTitle != "PIT") return;
+            BasePlugin.UpdateActivity(null, Singleton<CoreGameManager>.Instance.GetPoints(0).ToString() + " YTPs", null, null, null, null);
+        }
+    }
+
+    [HarmonyPatch(typeof(CoreGameManager), "AddPoints",
+        new[] { typeof(int), typeof(int), typeof(bool), typeof(bool), typeof(bool) })]
+    class OnAddPointsLong
+    {
+        static void Postfix()
+        {
+            if (Singleton<CoreGameManager>.Instance == null) return;
+            if (Singleton<CoreGameManager>.Instance.sceneObject.levelTitle != "PIT") return;
+            BasePlugin.UpdateActivity(null, Singleton<CoreGameManager>.Instance.GetPoints(0).ToString() + " YTPs", null, null, null, null);
         }
     }
 
@@ -123,11 +153,11 @@ namespace BaldPresencePlus.ActivityPatches
         {
             if (__instance.Paused)
             {
-                BasePlugin.plugin.UpdateActivity(Singleton<CoreGameManager>.Instance.sceneObject.levelTitle + " (Paused)", null, null, null, null, null);
+                BasePlugin.UpdateActivity(Singleton<CoreGameManager>.Instance.sceneObject.levelTitle + " (Paused)", null, null, null, null, null);
             }
             else
             {
-                BasePlugin.plugin.UpdateActivity(Singleton<CoreGameManager>.Instance.sceneObject.levelTitle, null, null, null, null, null);
+                BasePlugin.UpdateActivity(Singleton<CoreGameManager>.Instance.sceneObject.levelTitle, null, null, null, null, null);
             }
         }
     }
