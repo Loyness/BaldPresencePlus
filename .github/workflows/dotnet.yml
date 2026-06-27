@@ -1,0 +1,31 @@
+name: .NET Framework Build
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --no-restore --configuration Release
+    - name: Publish
+      run: dotnet publish --no-build --configuration Release --output ./publish
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v7.0.1
+      with:
+        name: net472-project-artifact
+        path: ./publish
